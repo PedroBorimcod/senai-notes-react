@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Inter";
+    font-size: 14px;
+    outline: none;
+    transition: all ease .2s;
+
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+.btn__primary {
+
+    background-color: #375dfb;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    color: white;
+}
+
+.btn__secondary {
+
+    background-color: #f3f5f8;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    color: #525866;
+
+}
