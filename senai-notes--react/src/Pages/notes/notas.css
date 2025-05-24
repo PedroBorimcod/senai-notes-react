@@ -1,0 +1,253 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    height: 100vh;
+    background: #f9fafb;
+    color: #111827;
+  }
+  
+  aside {
+    width: 15vw;
+    background: white;
+    padding: 20px;
+    border-right: 1px solid #e5e7eb;
+  }
+  
+  .logo {
+    height: 30px;
+    width: 157px;
+    gap: 10px;
+    display: flex;
+    transform: translateX(-50px);
+  }
+  
+  .sidebar-section {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-section h4 {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  
+  .sidebar-item {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .sidebar-item:hover {
+    color: #2563eb;
+  }
+  
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: white;
+  }
+  
+  header input {
+    width: 300px;
+    padding: 12px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    text-align: center;
+  }
+  
+  .content {
+    display: flex;
+    height: 100%;
+  }
+  
+  .notes-list {
+    width: 300px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .notes-list button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .note-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  .note-item h6 {
+  
+    font-size: 16px;
+  
+  }
+  
+  .note-item img {
+    width: 57px;
+    height: 75px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  
+  .note-info {
+    font-size: 14px;
+  }
+  
+  .tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 4px 0;
+  }
+  
+  .tag {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .note-detail {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+  }
+  
+  .note-detail img {
+    width: 100%;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .note-detail h2 {
+    margin-bottom: 10px;
+  }
+  
+  .meta {
+    font-size: 14px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .note-detail pre {
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+  }
+  
+  footer {
+    display: flex;
+    justify-content: end;
+    padding: 20px 0;
+    gap: 10px;
+  }
+  
+  footer button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .save {
+    background: #2563eb;
+    color: white;
+  }
+  
+  .cancel {
+    background: #e5e7eb;
+  }
+  
+  .note-actions {
+    width: 18vw;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    padding: 20px;
+  }
+  
+  .note-actions button {
+    width: 100%;
+    padding: 10px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .note-actions button:hover {
+    background: #e5e7eb;
+  }
+  
+  .ins{
+  display: flex;
+  
+  }
+  
+  .ins input {
+    width: 100%;
+    height: 47vh;
+    padding-bottom: 350px;
+    padding-left: 10px;
+  
+  }
+  .meta img{
+      max-width: min-content;
+      height: 20px;
+      display: flex;
+  }
+  .pesq{
+    margin-left: 50vw;
+    display: flex;
+    transform: translateX(70px);
+  }
+  .meta input{
+    display: flex;
+    height: 30px;
+    width: 100%;
+    border: none;
+    border-bottom: none;
+    gap: 10px;
+    
+  }
+  .td{
+    display: flex;
+    width: 100vw;
+  }

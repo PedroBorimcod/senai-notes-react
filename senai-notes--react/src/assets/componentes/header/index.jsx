@@ -1,7 +1,7 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faUser } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import "./style.css";
+// import "../../componentes/header/style.css";
 
 function Header() {
   
@@ -27,7 +27,7 @@ function Header() {
           onMouseLeave={() => setDropdownVisible(false)}
         >
           <button>
-            <FontAwesomeIcon icon={faUser} className="icon" />
+            {/* <FontAwesomeIcon icon={faUser} className="icon" /> */}
           </button>
 
           {isDropdownVisible && (

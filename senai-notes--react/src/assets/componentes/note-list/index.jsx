@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.css";
-import { faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+// import { faClock, faTag } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -83,12 +83,12 @@ function NotesList({ enviarNota, tagSelecionada, somenteArquivadas, atualizarLis
               <div className="tags">
                 {note.tags.map(tag => (
                   <span key={`${note.id}-${tag}`}>
-                    <FontAwesomeIcon icon={faTag} className="icon" /> {tag}
+                    {/* <FontAwesomeIcon icon={faTag} className="icon" /> {tag} */}
                   </span>
                 ))}
               </div>
               <p className="date">
-                <FontAwesomeIcon icon={faClock} className="icon" />{" "}
+                {/* <FontAwesomeIcon icon={faClock} className="icon" />{" "} */}
                 {new Date(note.date).toLocaleDateString()}
               </p>
             </div>

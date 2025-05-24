@@ -1,5 +1,6 @@
-import { faBoxArchive, faHouse, faTag } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBoxArchive, faHouse, faTag } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../../imgs/logo.png"
 import { useEffect, useState } from "react";
 import "./style.css";
 
@@ -27,17 +28,17 @@ function LeftPanel({ enviarTag, listarSomenteArquivadas }) {
   return (
     <nav className="left-panel">
   
-      <img className="logo" src="assets/logo.svg" alt="Logo da aplicação." />
+      <img className="logo" src={Logo} alt="Logo da aplicação." />
 
       <div className="buttons-container">
         <button onClick={aoListarTodasAsNotas}>
-          <FontAwesomeIcon icon={faHouse} className="icon" />
-          All Notes
+          {/* <FontAwesomeIcon icon={faHouse} className="icon" />
+          All Notes */}
         </button>
 
         <button onClick={() => listarSomenteArquivadas(true)}>
-          <FontAwesomeIcon icon={faBoxArchive} className="icon" />
-          Archived Notes
+          {/* <FontAwesomeIcon icon={faBoxArchive} className="icon" />
+          Archived Notes */}
         </button>
       </div>
 
@@ -46,8 +47,8 @@ function LeftPanel({ enviarTag, listarSomenteArquivadas }) {
    
         {tags.map(tag => (
           <button key={tag.id} onClick={() => enviarTag(tag.name)}>
-            <FontAwesomeIcon icon={faTag} className="icon" />
-            {tag.name}
+            {/* <FontAwesomeIcon icon={faTag} className="icon" />
+            {tag.name} */}
           </button>
         ))}
       </div>

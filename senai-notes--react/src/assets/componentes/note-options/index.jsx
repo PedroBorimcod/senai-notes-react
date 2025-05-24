@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxArchive, faTrash } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBoxArchive, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
@@ -76,20 +76,20 @@ function NoteOptions({ notaSelecionada, aoFecharANota }) {
 
       {notaSelecionada.archived && (
         <button onClick={onUnarchiveNote}>
-          <FontAwesomeIcon icon={faBoxArchive} className="icon" />
+          {/* <FontAwesomeIcon icon={faBoxArchive} className="icon" /> */}
           Unarchive Note
         </button>
       )}
 
       {!notaSelecionada.archived && (
         <button onClick={onArchiveNote}>
-          <FontAwesomeIcon icon={faBoxArchive} className="icon" />
+          {/* <FontAwesomeIcon icon={faBoxArchive} className="icon" /> */}
           Archive Note
         </button>
       )}
 
       <button onClick={onDeleteNote}>
-        <FontAwesomeIcon icon={faTrash} className="icon" />
+        {/* <FontAwesomeIcon icon={faTrash} className="icon" /> */}
         Delete Note
       </button>
     </div>

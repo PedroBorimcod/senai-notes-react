@@ -1,5 +1,5 @@
-import { faClock, faTag } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faClock, faTag } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./style.css";
@@ -9,7 +9,7 @@ function Note({ notaSelecionada, aoFecharANota }) {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState("");
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function Note({ notaSelecionada, aoFecharANota }) {
         isLoading: false,
         autoClose: 3000
       });
-      setImage(null);
+      // setImage(null);
       setImageURL("");
     } else {
       toast.update(toastId, {
@@ -62,7 +62,7 @@ function Note({ notaSelecionada, aoFecharANota }) {
       return;
     }
     const file = event.target.files[0];
-    setImage(file);
+    // setImage(file);
     setImageURL(URL.createObjectURL(file));
   }
 
@@ -87,7 +87,7 @@ function Note({ notaSelecionada, aoFecharANota }) {
           <div className="info__list">
             <div className="info__item">
               <div className="info__name">
-                <FontAwesomeIcon icon={faTag} className="icon" />
+                {/* <FontAwesomeIcon icon={faTag} className="icon" /> */}
                 <p>Tags</p>
               </div>
               <input
@@ -100,7 +100,7 @@ function Note({ notaSelecionada, aoFecharANota }) {
 
             <div className="info__item">
               <div className="info__name">
-                <FontAwesomeIcon icon={faClock} className="icon" />
+                {/* <FontAwesomeIcon icon={faClock} className="icon" /> */}
                 <p>Last edited</p>
               </div>
               <p>{new Date(notaSelecionada.date).toLocaleDateString()}</p>

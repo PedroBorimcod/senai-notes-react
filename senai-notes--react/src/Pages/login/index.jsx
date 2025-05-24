@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import { toast } from "react-toastify";
+import Logo from "../../assets/imgs/Logo Wrapper.png"
 
 
 function Login() {
@@ -24,7 +25,7 @@ function Login() {
     <>
       <div className="page__mask">
         <div className="form__container">
-          <img src="assets/logo.svg" alt="Logo do Senai Notes." />
+          <img src={Logo} alt="Logo do Senai Notes." />
           <h1>Welcome to Note</h1>
           <p className="subtitle">Please log in to continue</p>
 

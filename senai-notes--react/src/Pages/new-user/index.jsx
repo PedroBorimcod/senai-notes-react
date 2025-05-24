@@ -32,7 +32,7 @@ function NewUser() {
     <>
       <div className="page__mask">
         <div className="form__container">
-          <img src="assets/logo.svg" alt="Logo do Senai Notes." />
+          <img src="logo.svg" alt="Logo do Senai Notes." />
 
           <h1>Create Your Account</h1>
           <p className="subtitle">
