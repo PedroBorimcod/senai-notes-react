@@ -11,10 +11,12 @@ import NoteThumb2 from "../../assets/imgs/Rectangle 45.png";
 import NoteThumb3 from "../../assets/imgs/Rectangle 45 (1).png";
 import ClockIcon from "../../assets/imgs/Circle Clock.png";
 import DeleteIcon from "../../assets/imgs/Delete.png";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function Notes() {
-  const [notes, setNotes] = useState([
+  const LOCAL_STORAGE_KEY = "notasApp";
+
+  const defaultNotes = [
     {
       id: 1,
       title: "Untitled Note",
@@ -22,6 +24,7 @@ function Notes() {
       date: "27 May 2025",
       thumb: NoteThumb1,
       archived: false,
+      content: "",
     },
     {
       id: 2,
@@ -30,6 +33,7 @@ function Notes() {
       date: "29 Oct 2024",
       thumb: NoteThumb2,
       archived: false,
+      content: "",
     },
     {
       id: 3,
@@ -38,11 +42,33 @@ function Notes() {
       date: "28 Oct 2024",
       thumb: NoteThumb3,
       archived: false,
+      content: "",
     },
-  ]);
+  ];
 
+  const savedNotes = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const [notes, setNotes] = useState(savedNotes ? JSON.parse(savedNotes) : defaultNotes);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
-  const [activeTab, setActiveTab] = useState("all"); // 'all' ou 'archived'
+  const [activeTab, setActiveTab] = useState("all");
+  const [searchText, setSearchText] = useState("");  // Estado para o texto da busca
+  const fileInputRef = useRef();
+
+  const selectedNote = notes.find((note) => note.id === selectedNoteId);
+  const [editTitle, setEditTitle] = useState("");
+  const [editTags, setEditTags] = useState("");
+  const [editContent, setEditContent] = useState("");
+
+  useEffect(() => {
+    if (selectedNote) {
+      setEditTitle(selectedNote.title);
+      setEditTags(selectedNote.tags.join(", "));
+      setEditContent(selectedNote.content || "");
+    }
+  }, [selectedNoteId]);
+
+  const saveToLocalStorage = (updatedNotes) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedNotes));
+  };
 
   const handleCreateNote = () => {
     const newNote = {
@@ -52,48 +78,92 @@ function Notes() {
       date: new Date().toLocaleDateString(),
       thumb: NoteThumb1,
       archived: false,
+      content: "",
     };
-    setNotes((prev) => [newNote, ...prev]);
+    const updated = [newNote, ...notes];
+    setNotes(updated);
     setSelectedNoteId(newNote.id);
     setActiveTab("all");
+    saveToLocalStorage(updated);
   };
 
-  const handleSelectNote = (id) => {
-    setSelectedNoteId(id);
+  const handleSaveNote = () => {
+    const updated = notes.map((note) =>
+      note.id === selectedNoteId
+        ? {
+            ...note,
+            title: editTitle,
+            tags: editTags
+              .split(",")
+              .map((t) => t.trim())
+              .filter((t) => t),
+            content: editContent,
+            date: new Date().toLocaleDateString(),
+          }
+        : note
+    );
+    setNotes(updated);
+    saveToLocalStorage(updated);
   };
 
   const handleDeleteNote = () => {
-    setNotes((prev) => prev.filter((note) => note.id !== selectedNoteId));
+    const updated = notes.filter((note) => note.id !== selectedNoteId);
+    setNotes(updated);
     setSelectedNoteId(null);
+    saveToLocalStorage(updated);
   };
 
   const handleArchiveNote = () => {
-    setNotes((prev) =>
-      prev.map((note) =>
-        note.id === selectedNoteId ? { ...note, archived: true } : note
-      )
+    const updated = notes.map((note) =>
+      note.id === selectedNoteId ? { ...note, archived: true } : note
     );
+    setNotes(updated);
     setSelectedNoteId(null);
     setActiveTab("archived");
+    saveToLocalStorage(updated);
   };
 
   const handleUnarchiveNote = () => {
-    setNotes((prev) =>
-      prev.map((note) =>
-        note.id === selectedNoteId ? { ...note, archived: false } : note
-      )
+    const updated = notes.map((note) =>
+      note.id === selectedNoteId ? { ...note, archived: false } : note
     );
+    setNotes(updated);
     setSelectedNoteId(null);
     setActiveTab("all");
+    saveToLocalStorage(updated);
   };
 
-  // Filtra notas conforme aba ativa
-  const displayedNotes =
-    activeTab === "all"
-      ? notes.filter((note) => !note.archived)
-      : notes.filter((note) => note.archived);
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
-  const selectedNote = notes.find((note) => note.id === selectedNoteId);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && selectedNoteId) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const updated = notes.map((note) =>
+          note.id === selectedNoteId ? { ...note, thumb: reader.result } : note
+        );
+        setNotes(updated);
+        saveToLocalStorage(updated);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Filtra notas por aba e também pelo texto da busca
+  const displayedNotes = (activeTab === "all"
+    ? notes.filter((note) => !note.archived)
+    : notes.filter((note) => note.archived)
+  ).filter((note) => {
+    const search = searchText.toLowerCase();
+    return (
+      note.title.toLowerCase().includes(search) ||
+      note.content.toLowerCase().includes(search) ||
+      note.tags.some((tag) => tag.toLowerCase().includes(search))
+    );
+  });
 
   return (
     <div className="td">
@@ -105,6 +175,7 @@ function Notes() {
             onClick={() => {
               setActiveTab("all");
               setSelectedNoteId(null);
+              setSearchText(""); // limpa busca ao trocar de aba
             }}
           >
             <img src={HomeIcon} alt="" /> All Notes
@@ -114,6 +185,7 @@ function Notes() {
             onClick={() => {
               setActiveTab("archived");
               setSelectedNoteId(null);
+              setSearchText(""); // limpa busca ao trocar de aba
             }}
           >
             <img src={ArchiveIcon} alt="" /> Archived Notes
@@ -144,7 +216,12 @@ function Notes() {
         <header className="header">
           <h1>{activeTab === "all" ? "All Notes" : "Archived Notes"}</h1>
           <img src={SearchIcon} alt="" className="pesq" />
-          <input type="text" placeholder="Search by title, content, or tags..." />
+          <input
+            type="text"
+            placeholder="Search by title, content, or tags..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
           <img src={SettingsIcon} alt="configs" />
           <img src={TopbarIcon} alt="" />
         </header>
@@ -167,7 +244,7 @@ function Notes() {
               <div
                 key={note.id}
                 className="note-item"
-                onClick={() => handleSelectNote(note.id)}
+                onClick={() => setSelectedNoteId(note.id)}
               >
                 <img src={note.thumb} alt="Thumbnail" />
                 <div className="note-info">
@@ -190,17 +267,36 @@ function Notes() {
           {selectedNote ? (
             <>
               <div className="note-detail">
-                <img src={selectedNote.thumb} alt="Note banner" />
-                <h2>{selectedNote.title}</h2>
+                <div onClick={handleImageClick} style={{ cursor: "pointer" }}>
+                  <img src={selectedNote.thumb} alt="Note banner" />
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+
+                <input
+                  className="text-input"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  style={{ fontSize: "1.2rem", fontWeight: "bold", marginTop: "1rem" }}
+                />
+
                 <div className="meta">
                   <img src={TagIcon} alt="" />
                   Tags:
                   <input
                     type="text"
-                    placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                    value={editTags}
+                    onChange={(e) => setEditTags(e.target.value)}
+                    placeholder="Add tags separated by commas"
                     className="text-input"
                   />
                 </div>
+
                 <div className="meta">
                   <img src={ClockIcon} alt="" />
                   Last edited:
@@ -213,11 +309,18 @@ function Notes() {
                 </div>
 
                 <div className="ins">
-                  <input type="text" placeholder="Start typing your note here…" />
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    placeholder="Start typing your note here…"
+                    rows={8}
+                    className="text-input"
+                    style={{ width: "100%", resize: "vertical" }}
+                  />
                 </div>
 
                 <footer>
-                  <button className="save">Save Note</button>
+                  <button className="save" onClick={handleSaveNote}>Save Note</button>
                   <button className="cancel" onClick={() => setSelectedNoteId(null)}>
                     Cancel
                   </button>
